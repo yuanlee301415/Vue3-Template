@@ -1,8 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { basicRoutes } from '@/router/routes'
 
-const router = createRouter({
+export const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [],
+  routes: basicRoutes,
 })
 
-export default router
+export async function setupRouter(app) {
+  app.use(router)
+  await router.isReady()
+}

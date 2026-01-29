@@ -1,0 +1,6 @@
+@import './base.css';
+
+nav .router-link-active {
+  background-color: var(--color-border-hover);
+  color: var(--color-heading);
+}
