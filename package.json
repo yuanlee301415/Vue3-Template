@@ -9,7 +9,8 @@
     "preview": "vite build && vite preview",
     "preview:dist": "vite preview",
     "lint": "eslint . --fix --cache",
-    "format": "prettier --write --experimental-cli src/"
+    "format": "prettier --write --experimental-cli src/",
+    "prepare": "simple-git-hooks"
   },
   "dependencies": {
     "pinia": "^3.0.4",
@@ -24,12 +25,23 @@
     "eslint-plugin-vue": "~10.7.0",
     "globals": "^17.0.0",
     "less": "^4.5.1",
+    "lint-staged": "^16.2.7",
     "prettier": "3.8.1",
+    "simple-git-hooks": "^2.13.1",
     "vite": "^7.3.1",
     "vite-plugin-html": "^3.2.2",
     "vite-plugin-vue-devtools": "^8.0.5"
   },
   "engines": {
     "node": "^20.19.0 || >=22.12.0"
+  },
+  "lint-staged": {
+    "*.{vue,js}": [
+      "eslint . --fix --cache",
+      "prettier --write --experimental-cli src/"
+    ]
+  },
+  "simple-git-hooks": {
+    "pre-commit": "npx lint-staged"
   }
 }
