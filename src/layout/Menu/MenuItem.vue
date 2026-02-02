@@ -37,6 +37,7 @@ function handleToggleOpen() {
     <template v-if="item.children?.length">
       <dt @click="handleToggleOpen">
         <span>{{ item.title }}</span>
+        <i />
       </dt>
       <dd>
         <MenuItem v-for="child of item.children" :key="child.path" :item="child" />

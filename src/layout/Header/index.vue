@@ -7,23 +7,11 @@ const route = useRoute()
 </script>
 
 <template>
-  <div class="layout-header">
+  <header class="layout-header flex items-center h-12 px-3">
     <div class="header-left">
       <div v-if="route.meta?.title" class="breadcrumbs">
         <span>{{ route.meta.title }}</span>
       </div>
     </div>
-  </div>
+  </header>
 </template>
-
-<style scoped lang="less">
-.layout-header {
-  display: flex;
-  flex: 0 0 auto;
-  align-items: center;
-  justify-content: space-between;
-  height: 48px;
-  line-height: 48px;
-  padding: 0 10px;
-}
-</style>

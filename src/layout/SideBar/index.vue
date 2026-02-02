@@ -11,38 +11,13 @@ const routeStore = useRouteStore()
 </script>
 
 <template>
-  <aside class="layout-sidebar" style="--logo-height: 48px">
-    <div class="logo" @click="router.push(ROOT_ROUTE)">
+  <aside class="layout-sidebar flex flex-col fixed w-[--side-width] h-full border-r border-solid border-r-[--vt-c-black-soft]">
+    <div class="logo flex items-center h-12 py-3 pl-3 cursor-pointer" @click="router.push(ROOT_ROUTE)">
       <img src="@/assets/logo.svg" alt="Logo" width="32" height="32" />
-      <h2>{{ VITE_APP_TITLE }}</h2>
+      <h2 class="font-bold text-base ml-2">{{ VITE_APP_TITLE }}</h2>
     </div>
-    <nav>
+    <nav class="flex-1 overflow-y-auto select-none">
       <Menu :menus="routeStore.menus" />
     </nav>
   </aside>
 </template>
-
-<style scoped lang="less">
-.layout-sidebar {
-  .logo {
-    display: flex;
-    align-items: center;
-    height: var(--logo-height);
-    padding: 10px 0 10px 10px;
-    cursor: pointer;
-
-    h2 {
-      font-weight: 700;
-      font-size: 16px;
-      line-height: normal;
-      margin-left: 0.5rem;
-    }
-  }
-
-  nav {
-    height: calc(100% - var(--logo-height));
-    overflow-y: auto;
-    user-select: none;
-  }
-}
-</style>
