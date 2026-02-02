@@ -3,7 +3,7 @@ defineOptions({ name: 'LayoutContent' })
 </script>
 
 <template>
-  <div class="content">
+  <div class="layout-content">
     <RouterView v-slot="{ Component, route }">
       <transition name="fade-slide" mode="out-in">
         <component :is="Component" :key="route.path" />
@@ -11,3 +11,9 @@ defineOptions({ name: 'LayoutContent' })
     </RouterView>
   </div>
 </template>
+
+<style scoped lang="less">
+.layout-content {
+  padding: 10px;
+}
+</style>

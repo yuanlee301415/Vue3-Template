@@ -1,24 +1,19 @@
 <script setup>
 import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
+import { Menu } from '@/models/index.js'
 
 const props = defineProps({
   item: {
-    type: Object,
-  },
-  depth: {
-    type: Number,
-  },
-  fullPath: {
-    type: String,
+    type: Menu,
   },
 })
 
 const route = useRoute()
-const open = ref()
+const open = ref(false)
 
 watch(
-  () => route.name,
+  () => route.path,
   () => {
     open.value = initOpen()
   },
@@ -28,14 +23,8 @@ watch(
 )
 
 function initOpen() {
-  if (!props.item.children || !props.item.children.length) return false
-
-  const routeFullPathList = route.fullPath.split('/')
-  const fullPathList = props.fullPath?.split('/') || []
-  for (let i = 0; i < fullPathList.length; i++) {
-    if (fullPathList[i] !== routeFullPathList[i]) return false
-  }
-  return true
+  if (!props.item.children?.length) return false
+  return route.path.startsWith(props.item.path)
 }
 
 function handleToggleOpen() {
@@ -44,19 +33,18 @@ function handleToggleOpen() {
 </script>
 
 <template>
-  <dl v-if="item.meta && item.meta.hiddenMenu !== true" :class="{ open: open }" :style="{ textIndent: depth + 'em' }">
-    <template v-if="item.children && item.meta.hiddenChildrenInMenu !== true">
+  <dl :class="{ open: open }" :style="{ textIndent: item.depth + 'em' }" class="menu-item">
+    <template v-if="item.children?.length">
       <dt @click="handleToggleOpen">
-        <span>{{ item.meta.title }}</span
-        ><i />
+        <span>{{ item.title }}</span>
       </dt>
       <dd>
-        <MenuItem v-for="child of item.children" :key="child.name" :item="child" :depth="depth + 1" :fullPath="[fullPath, child.path].join('/')" />
+        <MenuItem v-for="child of item.children" :key="child.path" :item="child" />
       </dd>
     </template>
     <template v-else>
       <dt>
-        <router-link :to="{ name: item.name }">{{ item.meta.title }}</router-link>
+        <router-link :to="{ path: item.path }">{{ item.title }}</router-link>
       </dt>
     </template>
   </dl>

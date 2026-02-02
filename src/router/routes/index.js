@@ -5,10 +5,6 @@ export const ROOT_ROUTE = {
   path: '/',
   name: 'Root',
   redirect: '/home',
-  meta: {
-    title: 'Root',
-    hiddenMenu: true,
-  },
 }
 
 export const HOME_ROUTE = {
@@ -18,14 +14,12 @@ export const HOME_ROUTE = {
   component: LAYOUT,
   meta: {
     title: '首页',
-    hiddenChildrenInMenu: true,
   },
   children: [
     {
       path: '',
       name: 'HomePage',
       component: () => import('@/views/home/index.vue'),
-      meta: {},
     },
   ],
 }
@@ -34,17 +28,11 @@ export const PAGE_NOT_FOUND_ROUTE = {
   path: '/:path(.*)*',
   name: PAGE_NOT_FOUND_NAME,
   component: LAYOUT,
-  meta: {
-    title: PAGE_NOT_FOUND_NAME,
-    hiddenMenu: true,
-    hiddenChildrenInMenu: true,
-  },
   children: [
     {
       path: '',
       name: PAGE_NOT_FOUND_NAME + 'Page',
       component: EXCEPTION_404,
-      meta: {},
     },
   ],
 }

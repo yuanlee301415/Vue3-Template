@@ -1,11 +1,15 @@
 <script setup>
-import { basicRoutes } from '@/router/routes'
 import MenuItem from '@/layout/Menu/MenuItem.vue'
-// console.log('basicRoutes:', basicRoutes)
 
-defineOptions({ name: 'MenuComponent' })
+defineOptions({ name: 'LayoutMenu' })
+
+defineProps({
+  menus: {
+    type: Array,
+  },
+})
 </script>
 
 <template>
-  <MenuItem v-for="item of basicRoutes" :key="item.name" :item="item" :depth="1" :fullPath="item.path" />
+  <MenuItem v-for="item of menus" :key="item.path" :item="item" />
 </template>

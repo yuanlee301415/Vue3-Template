@@ -3,24 +3,22 @@ import LayoutSideBar from './SideBar/index.vue'
 import LayoutHeader from './Header/index.vue'
 import LayoutContent from './Content/index.vue'
 
-defineOptions({ name: 'LayoutComponent' })
+defineOptions({ name: 'LayoutContainer' })
 </script>
 
 <template>
-  <section class="layout">
+  <section class="layout-container" style="--side-width: 210px">
     <LayoutSideBar class="sideBar" />
 
     <main>
       <LayoutHeader />
-      <LayoutContent />
+      <LayoutContent class="content" />
     </main>
   </section>
 </template>
 
 <style scoped lang="less">
-@sideWidth: 210px;
-
-.layout {
+.layout-container {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -28,12 +26,13 @@ defineOptions({ name: 'LayoutComponent' })
   overflow: hidden;
   .sideBar {
     position: fixed;
-    width: @sideWidth;
+    width: var(--side-width);
     height: 100vh;
+    border-right: 1px solid var(--vt-c-black-soft);
   }
   main {
     height: 100%;
-    margin-left: @sideWidth;
+    margin-left: var(--side-width);
     display: flex;
     flex-direction: column;
     overflow: hidden;
