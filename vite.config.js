@@ -5,6 +5,7 @@ import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
 import { createHtmlPlugin } from 'vite-plugin-html'
+import terser from '@rollup/plugin-terser'
 
 import pkg from './package.json'
 
@@ -59,6 +60,16 @@ export default defineConfig(({ mode }) => {
             vue: ['vue', 'vue-router', 'pinia'],
           },
         },
+        plugins: [
+          terser({
+            compress: {
+              drop_debugger: true,
+              pure_funcs: Object.keys(console)
+                .filter((key) => !['debug', 'error'].includes(key))
+                .map((key) => `console.${key}`),
+            },
+          }),
+        ],
       },
     },
   }
