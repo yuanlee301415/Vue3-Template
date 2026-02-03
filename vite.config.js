@@ -9,7 +9,7 @@ import { createHtmlPlugin } from 'vite-plugin-html'
 import pkg from './package.json'
 
 // https://vite.dev/config/
-export default defineConfig(({mode}) => {
+export default defineConfig(({ mode }) => {
   const root = cwd()
   const env = loadEnv(mode, root)
   console.log('ENV:\n', env)
@@ -28,25 +28,38 @@ export default defineConfig(({mode}) => {
           data: {
             mode,
             __APP_VERSION__,
-            __APP_BUILD_TIME__
-          }
-        }
-      })
+            __APP_BUILD_TIME__,
+          },
+        },
+      }),
     ],
 
     resolve: {
       alias: {
-        '@': fileURLToPath(new URL('./src', import.meta.url))
+        '@': fileURLToPath(new URL('./src', import.meta.url)),
       },
     },
 
     server: {
-      port: Number(VITE_PORT)
+      port: Number(VITE_PORT),
     },
 
     define: {
       __APP_VERSION__: JSON.stringify(__APP_VERSION__),
-      __APP_BUILD_TIME__: JSON.stringify(__APP_BUILD_TIME__)
-    }
+      __APP_BUILD_TIME__: JSON.stringify(__APP_BUILD_TIME__),
+    },
+
+    build: {
+      rollupOptions: {
+        output: {
+          chunkFileNames: 'assets/js/[name].[hash].js',
+          entryFileNames: 'assets/js/[name].[hash].js',
+          assetFileNames: 'assets/[ext]/[name].[hash].[ext]',
+          manualChunks: {
+            vue: ['vue', 'vue-router', 'pinia'],
+          },
+        },
+      },
+    },
   }
 })
