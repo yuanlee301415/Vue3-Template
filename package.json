@@ -12,8 +12,7 @@
     "lint": "eslint . --fix --cache",
     "format": "prettier --write --experimental-cli src/",
     "prepare": "simple-git-hooks",
-    "ver": "node build/scripts/update-internal-version.js",
-    "postbuild": "node build/scripts/generate-release.js"
+    "ver": "node build/scripts/update-internal-version.js"
   },
   "dependencies": {
     "pinia": "^3.0.4",

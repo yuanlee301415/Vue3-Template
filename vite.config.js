@@ -6,6 +6,7 @@ import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
 import { createHtmlPlugin } from 'vite-plugin-html'
 import terser from '@rollup/plugin-terser'
+import { releasePlugin } from './build/plugins/release.js'
 
 import pkg from './package.json'
 
@@ -33,6 +34,7 @@ export default defineConfig(({ mode }) => {
           },
         },
       }),
+      releasePlugin(__APP_VERSION__, __APP_BUILD_TIME__, mode),
     ],
 
     resolve: {
